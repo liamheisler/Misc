@@ -3,8 +3,9 @@
  * TODO:
  *  -check all pins 
  *  -separate into cogs
- *    -what needs to be separated?
- *  -add header files to allow for smaller 
+ *    --what needs to be separated?
+ *  -add header files to allow for smaller program size
+ *    --distribute the songs into a header file and call it "music.h"
 */
 #include "simpletools.h" // Include simple tools
 #include "servo.h"
