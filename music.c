@@ -32,7 +32,7 @@ void christmasTree()
 
   Octave(baseNote,notes);          //calls the octave function and sets the base frequency
 
-   //These print statements verify note values that the   Propeller is using
+  //These print statements verify note values that the Propeller is using
   print("the freq of notes[B] is %d\n",notes[B]);
   print("the freq of notes[A] is %d\n",notes[A]);
   print("the freq of notes[E] is %d\n",notes[E]);
@@ -47,7 +47,7 @@ void christmasTree()
   freqout(PIN,qnt/2,2*notes[A]);
   freqout(PIN,3*qnt/2,2*notes[A]);
   freqout(PIN,qnt/4,2*notes[A]);
-
+  
   freqout(PIN,qnt/2,notes[G]);
   //freqout(PIN,qnt,notes[F]);
   freqout(PIN,qnt/2,2*notes[A]);
@@ -62,7 +62,7 @@ void christmasTree()
   freqout(PIN,qnt/2,notes[F]);
   freqout(PIN,qnt,notes[F]);
   freqout(PIN,qnt,notes[G]);
-
+  
   freqout(PIN,qnt/2,2*notes[A]);
   freqout(PIN,qnt/2,2*notes[A]);
   freqout(PIN,3*qnt/2,2*notes[A]);
@@ -76,7 +76,7 @@ void christmasTree()
   freqout(PIN,qnt/2,notes[F]);
   freqout(PIN,qnt,notes[F]);
   freqout(PIN,qnt,2*notes[C]);
-
+  
   freqout(PIN,qnt/2,2*notes[C]);
   freqout(PIN,qnt/2,2*notes[A]);
   freqout(PIN,3*qnt/2,2*notes[D]);
@@ -84,11 +84,11 @@ void christmasTree()
   freqout(PIN,qnt/2,2*notes[C]);
   freqout(PIN,qnt/2,notes[Asharp]);
   freqout(PIN,qnt,2*notes[Asharp]);
-  freqout(PIN,3*qnt/2,2*notes[Asharp]);  
+  freqout(PIN,3*qnt/2,2*notes[Asharp]);
   freqout(PIN,qnt/2,notes[G]);
   freqout(PIN,3*qnt/2,2*notes[C]);
   freqout(PIN,qnt/4,2*notes[Asharp]);
-
+  
   freqout(PIN,qnt/2,2*notes[Asharp]);
   freqout(PIN,qnt/2,2*notes[A]);
   freqout(PIN,qnt,2*notes[A]);
@@ -101,7 +101,6 @@ void christmasTree()
   freqout(PIN,qnt/2,2*notes[A]);
   freqout(PIN,3*qnt/2,2*notes[A]);
   freqout(PIN,qnt/4,2*notes[A]);//MF
-    
   freqout(PIN,qnt/2,notes[G]);
   //freqout(PIN,qnt,notes[F]);
   freqout(PIN,qnt,2*notes[Asharp]);
@@ -109,22 +108,13 @@ void christmasTree()
   freqout(PIN,qnt/2,notes[G]);
   freqout(PIN,qnt/2,notes[F]);
   freqout(PIN,2*qnt,notes[F]);
-
+  
   freqout(PIN,qnt/2,notes[G]);
   freqout(PIN,qnt/2,notes[F]);
   freqout(PIN,2*qnt,notes[F]);
   freqout(PIN,qnt/2,notes[G]);
   freqout(PIN,qnt/2,notes[F]);
   freqout(PIN,2*qnt,notes[F]);
-}
-
-void Octave(float Abase, int *notes)
-{
-  float n = 0.083333; //  This decimal is 1/12  that is 12 steps in an octave.
-   for (int i = 0; i < 12; i++)
-  {
-    notes[i] = (int)(Abase * pow(2, i * n));
-  }
 }
 
 void silentNight() 
@@ -195,13 +185,11 @@ void silentNight()
 
 void Octave(float Abase, int *notes)
 {
-float n = 0.083333; // This decimal is 1/12 that is 12 steps in an octave.
-for (int i = 0; i < 12; i++)
-{
-notes[i] = (int)(Abase * pow(2, i * n));
-}
-}
-
+  float n = 0.083333; // This decimal is 1/12 that is 12 steps in an octave.
+  for (int i = 0; i < 12; i++)
+  {
+    notes[i] = (int)(Abase * pow(2, i * n));
+  }
 }
 
 /*void Octave(float Abase, int *notes)  // this accomplishes the same thing without using a for loop. 
