@@ -95,43 +95,29 @@ int main() // Main function
       
     if(marbleToggle == 1)
     {
-      operateMarbleLift();
-      //marbleCog = cog_run(&operateMarbleLift, 10); 
-      //servo_speed(marbleServo, 35);
-      //marbleCog = cogstart(&operateMarbleLift, NULL, stack1, sizeof(stack1));      
+      operateMarbleLift();    
     }
     else if(marbleToggle == 0)
     {
-      //cog_end(marbleCog);
       servo_disable(marbleServo);
     }
     if(trainToggle == 1)
     {
-      //cogstart(silentNight, NULL, stack2, sizeof(stack2));
+      //cogstart(&silentNight, NULL, stack, sizeof(stack)); //start playing o' christmas tree...
       operateTrain(); 
-      //trainOperationCog = cog_run(&operateTrain, 10); 
-      
-      //trainOperationCog = cogstart(&operateTrain, NULL, stack3, sizeof(stack3));
     }
     else if(trainToggle == 0)
     {
-      //cog_end(trainOperationCog);
       servo_disable(trainServo);
     }
     if(galleryInitButton == 1)
     {
-      //operateGallery();
-      galleryCog = cog_run(&operateGallery, 10);  
-      //galleryCog = cogstart(&operateGallery, NULL, stack4, sizeof(stack4));      
+      operateGallery();    
     }
     if(treeButton == 1)
     {
-      //treeMusicCog = cogstart(&christmasTree, NULL, stack5, sizeof(stack5)); //start playing o' christmas tree...
-      //cog_run(christmasTree, stackSize); 
-      treeOperationCog = cog_run(&operateTree, stackSize); 
-      
-     // treeOperationCog = cogstart(&operateTree, NULL, stack6, sizeof(stack6));
-      //cogstart(christmasTree, NULL, stack, sizeof(stack)); //start playing o' christmas tree...
+      //cogstart(&christmasTree, NULL, stack, sizeof(stack)); //start playing o' christmas tree...
+      operateTree(); 
     }
     print("marble: %d || train: %d || shooter: %d || tree: %d\n", marbleToggle, trainToggle, galleryInitButton, treeButton);
     //pause(350);
@@ -151,22 +137,14 @@ int main() // Main function
 void operateMarbleLift()
 {  
   //print("marble method called \n");
-  treeMusicCog = cog_run(christmasTree, 20); 
   servo_speed(marbleServo, marbleSpeed);
-  
-  //cogstop(marbleCog);
-  //cog_end(marbleCog); 
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------
 void operateTrain()
 {
   //print("train method called \n");
-  //cogstart(silentNight, NULL, stack, sizeof(stack)); //begin playing silent night...
   servo_speed(trainServo, trainSpeed);
-  
-  //cog_end(trainOperationCog); 
-  //cogstop(trainOperationCog);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------
@@ -212,9 +190,7 @@ void operateGallery()
   {
     servo_angle(galleryElfServo, x);
     pause(2); //ms
-  }
-  cog_end(galleryCog);
-  //cogstop(galleryCog); 
+  } 
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------
@@ -234,8 +210,5 @@ void operateTree()
     servo_angle(treeServo,n);
     pause(pauseTime);
   }
-  servo_disable(treeServo);  
-  
-  //cog_end(treeOperationCog);
-  //cogstop(treeOperationCog); 
+  servo_disable(treeServo); 
 }
