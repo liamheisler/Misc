@@ -3,6 +3,8 @@
  * TODO:
  *  -check all pins 
  *  -separate into cogs
+ *    -what needs to be separated?
+ *  -add header files to allow for smaller 
 */
 #include "simpletools.h" // Include simple tools
 #include "servo.h"
@@ -68,9 +70,9 @@ int main() // Main function
       
     if(marbleToggle == 1)
     {
-      operateMarbleLift();
+      //operateMarbleLift();
       //servo_speed(marbleServo, 35);
-      //cog_run(operateMarbleLift, NULL, stack, sizeof(stack));      
+      cogstart(operateMarbleLift, NULL, stack, sizeof(stack));      
     }
     else if(marbleToggle == 0)
     {
@@ -108,7 +110,6 @@ int main() // Main function
 /*
  * The following methods handle the operations of each individual system. 
  */
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------
 void operateMarbleLift()
