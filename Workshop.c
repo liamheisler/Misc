@@ -9,14 +9,15 @@
 */
 #include "simpletools.h" // Include simple tools
 #include "servo.h"
+#include "music.h"
 #include "wavplayer.h"
 
 //BUTTON PINS
-#define marbleToggleID 5
+#define marbleToggleID 7 //originally was 5
 #define trainToggleID 13
 #define galleryButtonID 11
 #define treeButtonID 9
-#define galleryMSwitchID 7
+//#define galleryMSwitchID 7
 
 //SERVO PINS
 #define marbleServo 17
@@ -25,10 +26,14 @@
 #define galleryWheelServo 14
 #define treeServo 15
 
+//LED/MISC PINS
+#define elfLEDID 5
+#define servoAngularIncrement 10
+
 //SERVO SPEEDS
 #define marbleSpeed 35
 #define trainSpeed -35
-#define galleryWheelSpeed -25 //needs to be determined via testing
+#define galleryWheelSpeed -5 //needs to be determined via testing
 #define galleryWheelRest 0
 
 //SERVO ANGLES
@@ -61,7 +66,12 @@ int main() // Main function
   
   while(1)
   {
-    servo_angle(galleryElfServo, galleryElfStart);
+    /*for(int x = 0; x < galleryElfStart; x += servoAngularIncrement) 
+    {
+      servo_angle(galleryElfServo, x);
+      pause(2); //ms
+    } */ 
+    servo_angle(galleryElfServo, galleryElfStart); 
     //handleOperations(marbleToggleID, trainToggleID, galleryButtonID, treeButtonID);
     
     marbleToggle = input(marbleToggleID);
@@ -71,9 +81,9 @@ int main() // Main function
       
     if(marbleToggle == 1)
     {
-      //operateMarbleLift();
+      operateMarbleLift();
       //servo_speed(marbleServo, 35);
-      cogstart(operateMarbleLift, NULL, stack, sizeof(stack));      
+      //cogstart(operateMarbleLift, NULL, stack, sizeof(stack));      
     }
     else if(marbleToggle == 0)
     {
@@ -98,7 +108,7 @@ int main() // Main function
       //operateTree(); 
       cogstart(operateTree, NULL, stack, sizeof(stack));
     }
-    print("%cmarble: %d || train: %d || shooter: %d || tree: %d\n", HOME, marbleToggle, trainToggle, galleryInitButton, treeButton);
+    print("marble: %d || train: %d || shooter: %d || tree: %d\n", marbleToggle, trainToggle, galleryInitButton, treeButton);
     //pause(350);
 
   }
@@ -123,6 +133,7 @@ void operateMarbleLift()
 void operateTrain()
 {
   print("train method called \n");
+  //cogstart(silentNight, NULL, stack, sizeof(stack)); //begin playing silent night...
   servo_speed(trainServo, trainSpeed);
 }
 
@@ -136,8 +147,12 @@ void operateGallery()
   const char Santa2[] = {"Santa2.wav"}; 
   print("gallery method called \n");
 
-  servo_angle(galleryElfServo, galleryElfEnd);
-  pause(2000);
+  for(int x = galleryElfStart; x > 0; x -= servoAngularIncrement) 
+  {
+    servo_angle(galleryElfServo, x);
+    pause(2); //ms
+  }
+  pause(750);
 
   servo_speed(galleryWheelServo, galleryWheelSpeed);
 
@@ -145,12 +160,12 @@ void operateGallery()
 
   pause(500);
 
-  high(26); //LIGHT LEDs
+  high(elfLEDID); //LIGHT LEDs
   wav_play(bell4); // Play bell sound
   wav_volume(10); // Adjust volume
   pause(4000); //allow time for bell sound to play.
 
-  low(26);
+  low(elfLEDID);
 
   wav_play(Santa2); //play Santa's voice
   wav_volume(10); // Adjust volume
@@ -161,7 +176,11 @@ void operateGallery()
   pause(4000);
 
   servo_disable(galleryWheelServo); // stops the wheel.
-  servo_angle(galleryElfServo, galleryElfStart); //resets elf for next trial
+  for(int x = 0; x < galleryElfStart; x += servoAngularIncrement) 
+  {
+    servo_angle(galleryElfServo, x);
+    pause(2); //ms
+  }
 
 }
 
@@ -169,6 +188,7 @@ void operateGallery()
 void operateTree()
 {
   print("tree method called \n");
+  //cogstart(christmasTree, NULL, stack, sizeof(stack)); //start playing o' christmas tree...
   
   int pauseTime = 2; //This value controls how fast the tree rotates.
   
