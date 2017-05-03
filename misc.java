@@ -74,33 +74,6 @@ public class Auction
       }
     }
   }
-
-  /**
-   * Return the lot with the given number. Return null
-   * if a lot with this number does not exist.
-   * @param lotNumber The number of the lot to return.
-   */
-  public Lot getLot(int lotNumber)
-  {
-    if((lotNumber >= 1) && (lotNumber < nextLotNumber))
-    {
-      Iterator<Lot> it = lots.iterator();
-      while(it.hasNext())
-      {
-        Lot lot = it.next();
-        if (lot.getNumber() == lotNumber)
-        {
-          return lot;
-        }
-      }
-      return null;
-    }
-    else
-    {
-      System.out.println("Lot number: " + lotNumber + " does not exist.");
-      return null;
-    }
-  }
   
   /**
    * An example of a method - replace this comment with your own
@@ -150,6 +123,33 @@ public class Auction
       }
     }
     return unsold;
+  }
+  
+    /**
+   * Return the lot with the given number. Return null
+   * if a lot with this number does not exist.
+   * @param lotNumber The number of the lot to return.
+   */
+  public Lot getLot(int lotNumber)
+  {
+    if((lotNumber >= 1) && (lotNumber < nextLotNumber))
+    {
+      Iterator<Lot> it = lots.iterator();
+      while(it.hasNext())
+      {
+        Lot lot = it.next();
+        if (lot.getNumber() == lotNumber)
+        {
+          return lot;
+        }
+      }
+      return null;
+    }
+    else
+    {
+      System.out.println("Lot number: " + lotNumber + " does not exist.");
+      return null;
+    }
   }
   
   /**
